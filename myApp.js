@@ -19,7 +19,7 @@ app.get("/json", (req,res)=>{
 })
 
 app.get('/now', function(req,res,next){
-    req.time=newDate().toString();
+    req.time=new Date().toString();
     next();
 },
     (req, res) =>{
