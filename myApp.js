@@ -10,6 +10,12 @@ app.use(function(req , res, next){
     console.log(`${req.method} / ${req.path} - ${req.ip}`)
     next()
 })
+app.get("/:word/echo", (req, res) => {
+    const { word } = req.params;
+    res.json({
+      echo: word
+    });
+  });
 app.get("/json", (req,res)=>{
     if(process.env.MESSAGE_STYLE == 'uppercase'){
         res.json({"message":"HELLO JSON"})    
@@ -18,16 +24,15 @@ app.get("/json", (req,res)=>{
     }
 })
 
-const middleware = (req, res, next) => {
-    req.time = new Date().toString();
-    next();
-  };
-  
-  app.get("/now", middleware, (req, res) => {
-    res.send({
-      time: req.time
-    });
-  });
+app.get("/now",(req, res, next) => {
+      req.time = new Date().toString();
+      next();
+    },(req, res) => {
+      res.json({
+        time: req.time
+      });
+    }
+);
 
 
 
