@@ -11,11 +11,17 @@ app.use(function(req , res, next){
     next()
 })
 app.get("/:word/echo", (req, res) => {
-    const { word } = req.params;
+    // const { word } = req.params;
     res.json({
-      echo: word
+      echo: req.params.word
     });
-  });
+});
+app.get('/name', (req, res)=>{
+    // var first=req.query.firstname
+    // var lasrst=req.query.lasstname
+
+    res.json({name : req.query.first + " "+ req.query.last})
+})
 app.get("/json", (req,res)=>{
     if(process.env.MESSAGE_STYLE == 'uppercase'){
         res.json({"message":"HELLO JSON"})    
